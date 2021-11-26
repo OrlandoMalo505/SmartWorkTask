@@ -1,16 +1,20 @@
-package com.orlando.smartworktask.controllers;
+package com.orlando.smartworktask.restcontrollers;
 
 
 import com.orlando.smartworktask.domain.PhoneBook;
 import com.orlando.smartworktask.domain.Type;
 import com.orlando.smartworktask.services.NameService;
 import com.orlando.smartworktask.services.PhoneBookService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+
+@Api(description = "This is the Controller")
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/phoneBooks")
 public class RestController {
@@ -24,6 +28,8 @@ public class RestController {
     }
 
 
+
+    @ApiOperation(value = "This will return all phone books." ,notes="It uses GetMapping.")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Set<PhoneBook> getPhoneBooks(){
@@ -31,6 +37,7 @@ public class RestController {
         return set;
     }
 
+    @ApiOperation(value = "This will create a new phone book." ,notes="It uses PostMapping.")
     @PostMapping("/createNewPhoneBook")
     public ResponseEntity<PhoneBook> createPhoneBook (@RequestBody PhoneBook phoneBook) throws Exception {
 
@@ -50,6 +57,7 @@ public class RestController {
         return new ResponseEntity(newPhoneBook, HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "This will delete a new phone book." ,notes="It uses DeleteMapping.")
     @DeleteMapping("/deletePhoneBookById")
     public ResponseEntity<PhoneBook> deletePhoneBookById(@RequestBody PhoneBook phoneBook){
         PhoneBook deletePhoneBook = phoneBookService.findPhoneBookById(phoneBook.getId());
@@ -60,6 +68,7 @@ public class RestController {
         return new ResponseEntity(phoneBook, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "This will update a new phone book." ,notes="It uses PutMapping.")
     @PutMapping("/editPhoneBookById")
     public ResponseEntity<PhoneBook> editPhoneBookById(@RequestBody PhoneBook phoneBook){
         if(phoneBook.getType().equals(Type.Home) ||

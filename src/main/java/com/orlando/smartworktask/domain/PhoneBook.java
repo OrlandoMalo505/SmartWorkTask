@@ -1,5 +1,6 @@
 package com.orlando.smartworktask.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +23,9 @@ public class PhoneBook {
     @JoinColumn(name = "name_id")
     private Name name;
 
+    @ApiModelProperty( value ="This is the type of the phone book(Work, Home or Cellphone)",required = true )
     private Type type;
 
+    @ApiModelProperty( value ="This is the number of the phone book.",required = true )
     private Long number;
 }
